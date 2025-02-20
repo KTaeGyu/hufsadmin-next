@@ -40,3 +40,5 @@ a {
     color-scheme: dark;
   }
 }
+
+@import './_assets/font-awesome/all.min.css'

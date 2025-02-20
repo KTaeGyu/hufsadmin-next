@@ -1,95 +1,81 @@
 import Image from "next/image";
-import styles from "./page.module.css";
+import "./_assets/css/manager-index.css";
 
 export default function Home() {
+  const enterKeyPressed = () => {};
+  const signInButtonClicked = () => {};
+  const openWin = (s: "p") => {
+    return s;
+  };
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+    <>
+      <div className="form-signin">
+        <div className="text-left">
+          <Image
+            src="/img/symbol_navy-bold.gif"
+            alt="symbol_navy-bold"
+            width={38}
+            height={undefined}
+          />
+          <h2 className="d-inline hufs-primary-fg hufs-font-b align-bottom">
+            한국외대{" "}
+          </h2>
+          <h3 className="d-inline hufs-font-m align-bottom">관리자 시스템</h3>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+        <div className="login-form-div">
+          <h2 className="mb-3 font-weight-normal primary-fg text-left">
+            LOGIN
+          </h2>
+          <label htmlFor="inputEmail" className="sr-only">
+            사 번
+          </label>
+          <input
+            id="emp-no-input"
+            className="form-control"
+            placeholder="사 번"
+            required
+            autoFocus
           />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+          <label htmlFor="inputPassword" className="sr-only">
+            비밀번호
+          </label>
+          <input
+            type="password"
+            id="password-input"
+            className="form-control"
+            placeholder="비밀번호"
+            onKeyDown={enterKeyPressed}
+            required
           />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <button
+            id="sign-in-button"
+            className="btn btn-lg btn-block"
+            onClick={signInButtonClicked}
+          >
+            LOGIN
+          </button>
+          <div className="mt-3 text-right">
+            <button
+              className="btn btn-sm hufs-popup-inverse-button"
+              onClick={() => openWin("p")}
+            >
+              비밀번호 찾기
+            </button>
+          </div>
+          <form
+            id="formLogin"
+            name="formLogin"
+            role="form"
+            action="https://at.hufs.ac.kr/auth"
+            method="post"
+            className="login-form"
+          >
+            <input type="hidden" name="id" id="id" />
+            <input type="hidden" name="password" id="password" />
+          </form>
+        </div>
+      </div>
+      <form name="form1" method="post" />
+    </>
   );
 }
