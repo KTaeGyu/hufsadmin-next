@@ -1,4 +1,5 @@
 /* 전역 클래스 스타일링 */
+/* font */
 .hufs-font-b {
   font-family: "hufs_B";
 }
@@ -8,7 +9,7 @@
 .hufs-font-l {
   font-family: "hufs_L";
 }
-
+/* bg, fg */
 .primary-bg {
   background-color: #343a40;
 }
@@ -39,7 +40,7 @@
 .hufs-accent-fg {
   color: #8d704f;
 }
-
+/* button */
 .hufs-primary-button {
   background-color: #152c46 !important;
   color: #ffffff !important;
@@ -61,7 +62,7 @@
   color: #444444;
   border: solid 1px #d6d8db;
 }
-
+/* form */
 .login-form-div {
   border: 5px solid #bea17f;
   margin-top: 10px;
@@ -88,25 +89,28 @@
   position: relative;
   top: -1px;
 }
-
+/* font-face */
 @font-face {
   font-family: "hufs_B";
   src: url("../font/hufs/hufs_B.eot");
-  src: url("../font/hufs/hufs_B.eot?#iefix") format("embedded-opentype"), url("../font/hufs/hufs_B.woff") format("woff"), url("../font/hufs/hufs_B.ttf") format("truetype");
+  src: url("../font/hufs/hufs_B.eot?#iefix") format("embedded-opentype"), url("../font/hufs/hufs_B.woff") format("woff"),
+    url("../font/hufs/hufs_B.ttf") format("truetype");
   font-style: normal;
   font-weight: normal;
 }
 @font-face {
   font-family: "hufs_L";
   src: url("../font/hufs/hufs_L.eot");
-  src: url("../font/hufs/hufs_L.eot?#iefix") format("embedded-opentype"), url("../font/hufs/hufs_L.woff") format("woff"), url("../font/hufs/hufs_L.ttf") format("truetype");
+  src: url("../font/hufs/hufs_L.eot?#iefix") format("embedded-opentype"), url("../font/hufs/hufs_L.woff") format("woff"),
+    url("../font/hufs/hufs_L.ttf") format("truetype");
   font-style: normal;
   font-weight: normal;
 }
 @font-face {
   font-family: "hufs_M";
   src: url("../font/hufs/hufs_M.eot");
-  src: url("../font/hufs/hufs_M.eot?#iefix") format("embedded-opentype"), url("../font/hufs/hufs_M.woff") format("woff"), url("../font/hufs/hufs_M.ttf") format("truetype");
+  src: url("../font/hufs/hufs_M.eot?#iefix") format("embedded-opentype"), url("../font/hufs/hufs_M.woff") format("woff"),
+    url("../font/hufs/hufs_M.ttf") format("truetype");
   font-style: normal;
   font-weight: normal;
 }

@@ -1,0 +1,758 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  font-size: 13px;
+  color: #484745;
+}
+button {
+  outline: none !important;
+}
+#main-container-div {
+  padding: 0;
+}
+#main-header-div {
+  height: 60px;
+  background: linear-gradient(to bottom, #ffffff 0%, #f3f3f2 100%);
+  margin: 0;
+}
+#main-header-div > div:nth-child(1) {
+  width: 280px;
+  padding: 5px 5px;
+}
+#main-header-div > div:nth-child(1) img {
+  max-width: 280px;
+  height: 50px;
+}
+#main-header-div > div:nth-child(2) {
+  line-height: 60px;
+  font-size: 16px;
+}
+#main-body-div {
+  width: 100%;
+  margin: 0;
+}
+#left-menu-i {
+  float: right;
+  font-size: 22px;
+  margin-top: 13px;
+}
+#sign-out-i {
+  font-size: 20px;
+}
+#left-menu-div {
+  width: 280px;
+  float: left;
+}
+#right-main-div {
+  display: none;
+  width: auto;
+  overflow: hidden;
+  background-color: #eeeeee;
+  padding: 15px 0;
+}
+#right-intro-div {
+  width: auto;
+  overflow: hidden;
+  background-color: rgba(29, 128, 159, 0.9);
+  padding: 0;
+}
+#roll-select-dropdown-div {
+  padding: 0 7px 0 5px;
+}
+#roll-select-dropdown-button {
+  text-align: left;
+  background-color: #152c46;
+  border: none;
+}
+#admin-info-header-div {
+  text-align: center;
+  padding: 8px 0;
+}
+#admin-info-header-div h5 {
+  margin-bottom: 0;
+}
+#admin-info-body-div table {
+  width: 100%;
+}
+#admin-info-body-div table td {
+  height: 45px;
+  text-align: center;
+}
+#admin-info-body-div table tr td {
+  border-bottom: 1px solid #988063;
+}
+#admin-info-body-div table tr:last-child td {
+  border-bottom: none;
+}
+#admin-photo-td {
+  width: 90px;
+}
+#admin-photo-td div {
+  overflow: hidden;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  top: 0px;
+  border-radius: 40px;
+  background-size: 80px !important;
+}
+#admin-access-info-td {
+  text-align: left !important;
+  font-size: 12px;
+}
+
+#menu-list-div {
+}
+#menu-list-div i {
+  line-height: 38px;
+}
+#menu-renew-button {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+}
+.menu-group-div {
+  height: 38px;
+  padding: 0 5px;
+  color: #5f6368;
+  background-color: #ffffff;
+  font-size: 13px;
+  border-bottom: 1px solid #f3f3f3;
+  cursor: pointer;
+}
+.menu-group-div span {
+  line-height: 38px;
+}
+.menu-group-div span.menu-group-name-span {
+  margin-left: 5px;
+}
+.menu-block-div {
+  color: #5f6368;
+  background-color: #fbfbfb;
+  box-shadow: inset 0 4px 4px -2px rgba(0, 0, 0, 0.15), inset 0 -4px 4px -2px rgba(0, 0, 0, 0.15);
+}
+.root-menu-block-div {
+  color: #5f6368;
+  background-color: #fbfbfb;
+}
+.menu-item-div {
+  height: 38px;
+  padding: 0 5px;
+}
+.menu-item-div span {
+  line-height: 38px;
+  font-size: 13px;
+}
+.menu-level-1 {
+  padding-left: 5px;
+}
+.menu-level-2 {
+  padding-left: 30px;
+}
+.menu-level-3 {
+  padding-left: 55px;
+}
+
+/****************************** COMMON CSS START *****************************/
+/***** CARD *****/
+.card-title-span {
+  font-size: 20px;
+  font-weight: 400;
+}
+.card-header-right-button {
+  float: right;
+}
+/***** FORM *****/
+div.form-group {
+}
+div.form-group label.info {
+  color: #758396;
+  font-weight: 600;
+}
+div.form-group label.hufs-secondary {
+  color: #8d704f;
+  font-weight: 600;
+}
+
+div.form-group .form-control {
+  font-size: 13px;
+}
+/***** FONT *****/
+.hufs-font-b {
+  font-family: "hufs_B";
+}
+.hufs-font-m {
+  font-family: "hufs_M";
+}
+.hufs-font-l {
+  font-family: "hufs_L";
+}
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+.card-sub-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+/***** BACKGROUND, FOREGROUND COLOR *****/
+.primary-bg {
+  background-color: #343a40;
+}
+.primary-fg {
+  color: #343a40;
+}
+.dark-bg {
+  background-color: #403f3f;
+}
+.dark-fg {
+  color: #403f3f;
+}
+.hufs-primary-bg {
+  background-color: #152c46;
+}
+.hufs-primary-fg {
+  color: #152c46;
+}
+.hufs-secondary-bg {
+  background-color: #008294;
+}
+.hufs-secondary-fg {
+  color: #008294;
+}
+.hufs-accent-bg {
+  background-color: #8d704f;
+}
+.hufs-accent-fg {
+  color: #8d704f;
+}
+/***** SHADOW *****/
+.hufs-grey-shadow {
+  box-shadow: rgba(0, 0, 0, 0.3) 1px 0px 10px 1px;
+}
+/***** BUTTON *****/
+.hufs-primary-button {
+  background-color: #152c46 !important;
+  color: #ffffff !important;
+}
+.hufs-secondary-button {
+  background-color: #008294 !important;
+  color: #ffffff !important;
+}
+.hufs-accent-button {
+  background-color: #8d704f !important;
+  color: #ffffff !important;
+}
+.hufs-dark-button {
+  background-color: #403f3f !important;
+  color: #ffffff !important;
+}
+.hufs-popup-inverse-button {
+  background-color: #ffffff;
+  color: #444444;
+  border: solid 1px #d6d8db;
+}
+
+.hufs-search-button {
+  background-color: #2dc3e8;
+  color: #ffffff;
+}
+.hufs-select-button {
+  background-color: #ffc107;
+  color: #444444;
+}
+.hufs-execute-button {
+  background-color: #007bff;
+  color: #ffffff;
+}
+.hufs-close-button {
+  background-color: #ffffff;
+  color: #444444;
+}
+.hufs-submit-button {
+  background-color: #28a745;
+  color: #ffffff;
+}
+.hufs-create-button {
+  background-color: #28a745;
+  color: #ffffff;
+}
+.hufs-update-button {
+  background-color: #28a745;
+  color: #ffffff;
+}
+.hufs-delete-button {
+  background-color: #d32f2f;
+  color: #ffffff;
+}
+
+.hufs-create-popup-button {
+  background-color: #d4edda;
+  color: #155724;
+  border: solid 1px #c3e6cb;
+}
+.hufs-update-popup-button {
+  background-color: #cce5ff;
+  color: #004085;
+  border: solid 1px #b8daff;
+}
+.hufs-delete-popup-button {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: solid 1px #f5c6cb;
+}
+.hufs-cancel-popup-button {
+  background-color: #fff3cd;
+  color: #856404;
+  border: solid 1px #ffcb8b;
+}
+.hufs-select-popup-button {
+  background-color: #e2e3e5;
+  color: #383d41;
+  border: solid 1px #d6d8db;
+}
+.hufs-warning-popup-button {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: solid 1px #f5c6cb;
+}
+.hufs-show-popup-button {
+  background-color: #cce5ff;
+  color: #004085;
+  border: solid 1px #b8daff;
+}
+/***** CARD *****/
+.dark-blue-header {
+  background-color: #1c4f83;
+  color: #ffffff;
+}
+.light-blue-header {
+  background-color: #2b68a7;
+  color: #ffffff;
+}
+.cyan-header {
+  background-color: #0a8ca6;
+  color: #ffffff;
+}
+.grey-header {
+  background-color: #697179;
+  color: #ffffff;
+}
+.light-grey-header {
+  background-color: #adb5bd;
+  color: #ffffff;
+}
+/***** MODAL *****/
+.modal-header {
+  padding: 10px !important;
+}
+.modal-body .modal-body-row-div {
+  margin-bottom: 10px;
+}
+.modal-body .modal-body-row-div:last-child {
+  margin-bottom: 0;
+}
+.hufs-primary-modal .modal-header {
+  background-color: #152c46;
+  border-bottom: 2px solid #0b1740;
+  color: #ffffff;
+}
+.hufs-secondary-modal .modal-header {
+  background-color: #008294;
+  border-bottom: 2px solid #154e94;
+  color: #ffffff;
+}
+.hufs-grey-modal .modal-header {
+  background-color: #f5f5f5;
+  border-bottom: 2px solid #403f3f;
+}
+/***** NAV *****/
+ul.hufs-nav li.nav-item > a {
+  color: #777777;
+}
+ul.hufs-nav li.nav-item > a.active {
+  color: #495057;
+  border-radius: 0;
+  border-top: 2px solid #152c46;
+}
+/***** DATA TABLES PAGINATION *****/
+ul.pagination {
+  padding-top: 0;
+}
+ul.pagination li.paginate_button {
+  margin-left: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+ul.pagination li.paginate_button.active a {
+  background-color: #2dc3e8;
+  border-color: #2dc3e8;
+}
+ul.pagination li.paginate_button.active a:hover {
+  background-color: #2dc3e8;
+  border-color: #2dc3e8;
+  color: #fff;
+  -webkit-text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+/***** TABLE *****/
+table {
+  table-layout: fixed;
+}
+table.table-bordered tr:last-child td {
+  border-bottom: 1px solid #dee2e6 !important;
+}
+table.table-bordered tr td:first-child {
+  border-left: 1px solid #dee2e6;
+}
+table.table-bordered tr td:last-child {
+  border-right: 1px solid #dee2e6 !important;
+}
+table th,
+table td {
+  vertical-align: middle !important;
+}
+table tbody tr td:last-child button {
+  margin: 0 5px;
+}
+.borderless-table td {
+  border: none;
+}
+.ellipsis-td {
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/***** DATA TABLES *****/
+table.hufs-secondary-table {
+  width: 100% !important;
+  border: 1px #dee2e6 solid;
+  color: #444444;
+}
+table.hufs-secondary-table thead tr {
+  background: #eeeeee linear-gradient(to bottom, #f2f2f2 0, #fafafa 100%);
+  border-left: none;
+}
+table.hufs-secondary-table thead tr th {
+  border-right: 1px #dee2e6 solid;
+  border-bottom: 1px #dee2e6 solid;
+  vertical-align: middle;
+}
+table.hufs-secondary-table thead tr th:last-child {
+  border-right: none;
+}
+table.hufs-secondary-table tbody tr td {
+  border-right: 1px #dee2e6 solid;
+  border-bottom: 1px #dee2e6 solid;
+  border-top: none;
+  vertical-align: middle;
+}
+table.hufs-secondary-table tbody tr td:last-child {
+  border-right: none;
+}
+table.hufs-secondary-table tbody tr td:last-child button {
+  margin: 0 5px;
+}
+table.hufs-secondary-table.dataTable.no-footer {
+  border-bottom: none;
+}
+/***** CURSOR *****/
+.finger-cursor {
+  cursor: pointer;
+}
+/***** SPINNER *****/
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 350px auto auto auto;
+  width: 1em;
+  height: 1em;
+  z-index: 9998;
+  display: none;
+  color: #4891dc;
+}
+/***** SPINNER PERCENTAGE *****/
+.loader-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 350px auto auto auto;
+  width: 1em;
+  height: 1em;
+  z-index: 9999;
+  display: none;
+}
+.loader-box div {
+  position: relative;
+  top: 26px;
+  left: -43px;
+  width: 100px;
+  height: 100px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  color: #484745;
+}
+/***** DATE PICKER *****/
+span.drp-selected {
+  display: none !important;
+}
+/***** CHECK BOX *****/
+/* The container */
+.checkbox-container {
+  display: block;
+  position: relative;
+  top: -15px;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/* Hide the browser's default checkbox */
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+/* Create a custom checkbox */
+.checkbox-container .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #ccc;
+}
+/* On mouse-over, add a grey background color */
+.checkbox-container:hover input ~ .checkmark {
+  background-color: #aaa;
+}
+/* When the checkbox is checked, add a blue background */
+.checkbox-container input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkbox-container .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+/* Show the checkmark when checked */
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+/* Style the checkmark/indicator */
+.checkbox-container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 7px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.checkbox-container .check-label-span {
+  position: relative;
+  top: -7px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #758396;
+}
+/***** RADIO BOX *****/
+/* Hide the browser's default radio button */
+.radiobox-container {
+  display: block;
+  position: relative;
+  top: -15px;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.radiobox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+/* Create a custom radio button */
+.radiobox-container .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #ccc;
+  border-radius: 50%;
+}
+/* On mouse-over, add a grey background color */
+.radiobox-container:hover input ~ .checkmark {
+  background-color: #aaa;
+}
+/* When the radio button is checked, add a blue background */
+.radiobox-container input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radiobox-container .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+/* Show the indicator (dot/circle) when checked */
+.radiobox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+/* Style the indicator (dot/circle) */
+.radiobox-container .checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+/***** TOGGLE SWITCH *****/
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 56px;
+  height: 30px;
+  margin-bottom: 0;
+}
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 23px;
+  width: 23px;
+  left: 3px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+input:checked + .slider {
+  background-color: #ffc107;
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px #ffc107;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+/* Rounded sliders */
+.slider.round {
+  border-radius: 30px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+/***** BADGE *****/
+span.badge-blue {
+  color: #004085;
+  background-color: #cce5ff;
+  border: 1px solid #b8daff;
+}
+span.badge-grey {
+  background-color: #e2e3e5;
+  color: #383d41;
+  border: solid 1px #d6d8db;
+}
+
+@font-face {
+  font-family: "hufs_B";
+  src: url("../../../_assets/font/hufs/hufs_B.eot");
+  src: url("../../../_assets/font/hufs/hufs_B.eot?#iefix") format("embedded-opentype"), url("../../../_assets/font/hufs/hufs_B.woff") format("woff"),
+    url("../../../_assets/font/hufs/hufs_B.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: "hufs_L";
+  src: url("../../../_assets/font/hufs/hufs_L.eot");
+  src: url("../../../_assets/font/hufs/hufs_L.eot?#iefix") format("embedded-opentype"), url("../../../_assets/font/hufs/hufs_L.woff") format("woff"),
+    url("../../../_assets/font/hufs/hufs_L.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: "hufs_M";
+  src: url("../../../_assets/font/hufs/hufs_M.eot");
+  src: url("../../../_assets/font/hufs/hufs_M.eot?#iefix") format("embedded-opentype"), url("../../../_assets/font/hufs/hufs_M.woff") format("woff"),
+    url("../../../_assets/font/hufs/hufs_M.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  #left-menu-div {
+    display: none;
+  }
+}
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  #left-menu-div {
+    display: block;
+  }
+}
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  #left-menu-div {
+    display: block;
+  }
+}
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  #left-menu-div {
+    display: block;
+  }
+}
+/****************************** COMMON CSS END *****************************/

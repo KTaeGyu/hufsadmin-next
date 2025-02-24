@@ -3,8 +3,8 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { KeyboardEventHandler } from "react";
-import SHA512 from "../_assets/js/sha512";
 import { CenterToast } from "../_constants/swal";
+import SHA512 from "../_functions/sha512";
 import useInput from "../_hooks/useInput";
 
 type AuthRespose = ResposeData<"AUTHENTICATED" | "NO_RIGHT" | "INVALID_ID_PASSWORD">;
