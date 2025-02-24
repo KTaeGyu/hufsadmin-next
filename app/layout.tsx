@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import type { Metadata } from "next";
-// import "./_assets/css/common.css";
+import "./_assets/css/common.css";
 import "./_assets/css/globals.css";
 
 export const metadata: Metadata = {
