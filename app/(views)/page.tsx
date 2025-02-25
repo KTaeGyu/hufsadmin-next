@@ -4,7 +4,7 @@ import Title from "./_components/Title";
 
 export default function Home() {
   return (
-    <div className="text-center">
+    <div className="signin-div text-center">
       <div className="form-signin">
         <Title />
         <SigninForm />

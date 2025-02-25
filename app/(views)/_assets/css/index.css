@@ -1,4 +1,4 @@
-body > div {
+.signin-div {
   height: 100%;
   display: -ms-flexbox;
   display: flex;
@@ -8,6 +8,7 @@ body > div {
   padding-bottom: 40px;
   background-color: #f5f5f5;
 }
+/* form-sigin */
 .form-signin {
   width: 100%;
   max-width: 600px;
@@ -27,6 +28,34 @@ body > div {
 .form-signin .form-control:focus {
   z-index: 2;
 }
+/* login-form-div */
+.login-form-div {
+  border: 5px solid #bea17f;
+  margin-top: 10px;
+  padding: 30px 50px;
+  box-shadow: 0px 1px 2px #9c9c9c;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+.login-form-div h2 {
+  display: block;
+  border-bottom: 1px solid #cccccc;
+}
+.login-form-div .alert {
+  margin-top: 20px;
+  background-color: #f2f5f5;
+  border: 3px solid #b1ccd0;
+  border-radius: 0 !important;
+  font-size: 14px;
+}
+.login-form-div .login-as-div {
+  margin-bottom: 10px;
+}
+.login-form-div .login-as-div span {
+  position: relative;
+  top: -1px;
+}
+/* inputs */
 #emp-no-input {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;

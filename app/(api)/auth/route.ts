@@ -1,10 +1,10 @@
-import getClientIp from "@/app/_functions/getClientIp";
-import getCurrentTimeString from "@/app/_functions/getCurrentTimeString";
+import getClientIp from "@/app/(views)/_functions/getClientIp";
+import getCurrentTimeString from "@/app/(views)/_functions/getCurrentTimeString";
 import { getPool } from "@/app/_lib/oracledb";
 import { sessionOptions } from "@/app/_lib/session";
 import { getIronSession } from "iron-session";
 import { NextResponse } from "next/server";
-import OracleDB from "oracledb";
+import { Connection } from "oracledb";
 import getGlobalCounselInternMember from "./_sql/getGlobalCounselInternMember.sql";
 import getSeflagAU from "./_sql/getSeflagAU.sql";
 import getSeoulCounselInternMember from "./_sql/getSeoulCounselInternMember.sql";
@@ -16,7 +16,7 @@ interface PostRequestBody {
 }
 
 export async function POST(req: Request) {
-  let connection: OracleDB.Connection | null = null;
+  let connection: Connection | null = null;
   try {
     const body: PostRequestBody = await req.json();
     const { id, password } = body;
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
     let userName = "";
 
     // 로그인 시도
-    console.log("Trying To Signin...");
+    console.log("Trying To Execute...");
     // Ex1) 광역버스관리자
     const { PUBLIC_TRAFFIC_MANAGER_ID, PUBLIC_TRAFFIC_MANAGER_PW } = process.env;
     if (id === PUBLIC_TRAFFIC_MANAGER_ID && password === PUBLIC_TRAFFIC_MANAGER_PW) {
@@ -92,13 +92,14 @@ export async function POST(req: Request) {
     session.dept_name = deptName;
     session.recent_access_ip = ip;
     session.recent_access_time = getCurrentTimeString();
+
     // 로그인 정보 저장
     console.log("Insert Login Record...");
     await connection.execute(insertLoginRecordSql, [id, userName, session.recent_access_time, ip], { autoCommit: true });
 
     return NextResponse.json({ status: "SUCCESS", value: "AUTHENTICATED" });
   } catch (err) {
-    console.log("Error authenticating:", err);
+    console.log(err);
 
     return NextResponse.json({ status: "FAIL", value: "" });
   } finally {

@@ -9,18 +9,26 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/free-regular-svg-icons": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "axios": "^1.7.9",
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^4.6.2",
+    "daterangepicker": "^3.1.0",
     "dayjs": "^1.11.13",
     "iron-session": "^8.0.4",
     "next": "15.1.7",
     "oracledb": "^6.7.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "simple-line-icons": "^2.5.5",
     "sweetalert2": "^7.26.10"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/daterangepicker": "^3.1.8",
     "@types/node": "^20",
     "@types/oracledb": "^6.5.3",
     "@types/react": "^19",

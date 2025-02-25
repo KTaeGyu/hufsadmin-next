@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { KeyboardEventHandler } from "react";
+import { KeyboardEventHandler, useRef } from "react";
 import { CenterToast } from "../_constants/swal";
 import SHA512 from "../_functions/sha512";
 import useInput from "../_hooks/useInput";
@@ -14,6 +14,7 @@ export default function SigninForm() {
 
   const [id, idChangeHandler] = useInput();
   const [password, passwordChangeHandler] = useInput();
+  const form1 = useRef<HTMLFormElement>(null);
 
   const enterKeyPressed: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === "Enter") {
@@ -33,7 +34,7 @@ export default function SigninForm() {
     try {
       const newPassword = SHA512(password);
       const data = { id, password: newPassword };
-      const result = await axios.post<AuthRespose>("/api/auth", data);
+      const result = await axios.post<AuthRespose>("/auth", data);
 
       // 요청 실패
       if (result.data.status === "FAIL") {
@@ -55,17 +56,37 @@ export default function SigninForm() {
       console.error(err);
     }
   };
-  const openWin = (s: "p") => {
-    return s;
+  const openWin = (s: "p" | "g", form: HTMLFormElement | null) => {
+    console.log("Trying To Open New Window...");
+    if (!form) {
+      console.log("Error: form is not assigned.");
+      return;
+    }
+    const isP = s === "p";
+    const target = "chang";
+
+    // window
+    const width = "500";
+    const height = isP ? "460" : "500";
+    const features = `'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,copyhistory=no,width=${width},height=${height}',top=0,left=0`;
+    window.open("", target, features);
+
+    // form
+    const url = isP ? "https://webs.hufs.ac.kr/src08/jsp/login/FindPw.jsp" : "https://webs.hufs.ac.kr/src08/jsp/login/LOGIN1050R.jsp";
+    form.method = "post";
+    form.target = target;
+    form.action = url;
+    form.submit();
   };
+
   return (
     <div className="login-form-div">
       <h2 className="mb-3 font-weight-normal primary-fg text-left">LOGIN</h2>
-      <label htmlFor="inputEmail" className="sr-only">
+      <label htmlFor="emp-no-input" className="sr-only">
         사 번
       </label>
       <input id="emp-no-input" className="form-control" value={id} onChange={idChangeHandler} placeholder="사 번" required autoFocus />
-      <label htmlFor="inputPassword" className="sr-only">
+      <label htmlFor="password-input" className="sr-only">
         비밀번호
       </label>
       <input
@@ -82,14 +103,11 @@ export default function SigninForm() {
         LOGIN
       </button>
       <div className="mt-3 text-right">
-        <button className="btn btn-sm hufs-popup-inverse-button" onClick={() => openWin("p")}>
+        <button className="btn btn-sm hufs-popup-inverse-button" onClick={() => openWin("p", form1.current)}>
           비밀번호 찾기
         </button>
       </div>
-      <form id="formLogin" name="formLogin" role="form" action="https://at.hufs.ac.kr/auth" method="post" className="login-form">
-        <input type="hidden" name="id" id="id" />
-        <input type="hidden" name="password" id="password" />
-      </form>
+      <form ref={form1} method="post" className="d-none" />
     </div>
   );
 }
