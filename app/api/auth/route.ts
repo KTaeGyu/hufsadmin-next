@@ -1,8 +1,7 @@
-import getClientIp from "@/app/(views)/_functions/getClientIp";
-import getCurrentTimeString from "@/app/(views)/_functions/getCurrentTimeString";
+import getClientIp from "@/app/_functions/getClientIp";
+import getCurrentTimeString from "@/app/_functions/getCurrentTimeString";
 import { getPool } from "@/app/_lib/oracledb";
-import { sessionOptions } from "@/app/_lib/session";
-import { getIronSession } from "iron-session";
+import { getSession } from "@/app/_lib/session";
 import { NextResponse } from "next/server";
 import { Connection } from "oracledb";
 import getGlobalCounselInternMember from "./_sql/getGlobalCounselInternMember.sql";
@@ -24,13 +23,12 @@ export async function POST(req: Request) {
 
     // Data Validation Check
     if (!id || !password) {
-      return NextResponse.json({ status: "FAIL", value: "" });
+      throw new Error("사번 또는 비밀번호를 확인하세요.", { cause: 400 });
     }
 
     // Load Session
     console.log("Loading Session...");
-    const response = NextResponse.next();
-    const session = await getIronSession<AppSession>(req, response, sessionOptions);
+    const session = await getSession();
 
     // Load database
     console.log("Getting Connection To DB Pool...");
@@ -40,7 +38,8 @@ export async function POST(req: Request) {
     // 로그인 정보
     let adminName = "";
     let deptName = "";
-    let userName = "";
+    let username = "";
+    const currentTime = getCurrentTimeString();
 
     // 로그인 시도
     console.log("Trying To Execute...");
@@ -49,40 +48,40 @@ export async function POST(req: Request) {
     if (id === PUBLIC_TRAFFIC_MANAGER_ID && password === PUBLIC_TRAFFIC_MANAGER_PW) {
       adminName = "광역버스관리자";
       deptName = "총괄지원팀";
-      userName = "광역버스";
+      username = "광역버스";
     }
     // Ex2) 상담센터 인턴상담원
     //      상담센터의 인턴상담원은 아이디 앞에 G 혹은 S가 붙는다.
     else if (id[0] === "G" || id[0] === "S") {
       const sql = id[0] === "G" ? getGlobalCounselInternMember : getSeoulCounselInternMember;
 
-      const dbResult = await connection.execute<[string, string]>(sql, [id, password]);
+      const dbResult = await connection.execute<FixedArray<string, 2>>(sql, { id, password });
       // 로그인 정보가 없을 경우
       if (dbResult.rows?.length !== 1) {
-        return NextResponse.json({ status: "SUCCESS", value: "INVALID_ID_PASSWORD" });
+        throw new Error("아이디 또는 비밀번호가 유효하지 않습니다.", { cause: 404 });
       }
       // 성공
       adminName = dbResult.rows[0][0];
       deptName = "상담센터";
-      userName = adminName;
+      username = adminName;
     }
     // 일반 사용자
     else {
-      const dbResult = await connection.execute<[string, string, string]>(getSeflagAU, [id, password]);
+      const dbResult = await connection.execute<FixedArray<string, 3>>(getSeflagAU, { id, password });
 
       // 로그인 정보가 없을 경우
       if (dbResult.rows?.length !== 1) {
-        return NextResponse.json({ status: "SUCCESS", value: "INVALID_ID_PASSWORD" });
+        throw new Error("아이디 또는 비밀번호가 유효하지 않습니다.", { cause: 404 });
       }
       // 권한이 없을 경우
       const seFlag = dbResult.rows[0][0];
       if (seFlag !== "1" && seFlag !== "2") {
-        return NextResponse.json({ status: "SUCCESS", value: "NO_RIGHT" });
+        throw new Error("교직원만 사용할 수 있습니다.", { cause: 403 });
       }
       // 성공
       adminName = dbResult.rows[0][1];
       deptName = dbResult.rows[0][2];
-      userName = adminName;
+      username = adminName;
     }
 
     // 세션 설정
@@ -91,17 +90,25 @@ export async function POST(req: Request) {
     session.admin_name = adminName;
     session.dept_name = deptName;
     session.recent_access_ip = ip;
-    session.recent_access_time = getCurrentTimeString();
+    session.recent_access_time = currentTime;
+    session.save();
 
     // 로그인 정보 저장
     console.log("Insert Login Record...");
-    await connection.execute(insertLoginRecordSql, [id, userName, session.recent_access_time, ip], { autoCommit: true });
+    await connection.execute(insertLoginRecordSql, { id, username, currentTime, ip }, { autoCommit: true });
 
-    return NextResponse.json({ status: "SUCCESS", value: "AUTHENTICATED" });
+    return NextResponse.json({ message: "로그인 내역이 기록되었습니다." }, { status: 201 });
   } catch (err) {
     console.log(err);
+    if (!(err instanceof Error)) {
+      return NextResponse.json({ message: "에러가 발생했습니다." }, { status: 500 });
+    }
 
-    return NextResponse.json({ status: "FAIL", value: "" });
+    if (typeof err.cause === "number") {
+      return NextResponse.json({ message: err.message }, { status: err.cause });
+    }
+
+    return NextResponse.json({ message: "에러가 발생했습니다." }, { status: 500 });
   } finally {
     if (connection) {
       try {
