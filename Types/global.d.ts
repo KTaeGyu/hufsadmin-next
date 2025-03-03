@@ -1,17 +1,10 @@
+import { AxiosError } from "axios";
+
 declare global {
   // 전역적으로 사용 가능한 타입 선언
-  interface AppSession {
-    admin_id: string;
-    admin_name: string;
-    dept_name: string;
-    recent_access_ip: string | null;
-    recent_access_time: string;
-  }
+  type FixedSizeArray<T, N extends number> = [T, ...T[]] & { length: N };
 
-  interface ResposeData<T = ""> {
-    status: "SUCCESS" | "FAIL";
-    value: T;
-  }
+  type CustomError = AxiosError<{ message: string }>;
 }
 
 export {};

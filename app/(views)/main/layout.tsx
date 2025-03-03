@@ -1,9 +1,8 @@
 import "./_assets/css/main.css";
 import "./_assets/fontawesome-6-pro/css/all.min.css";
-import Header from "./_components/Header";
-import LeftMenu from "./_components/LeftMenu";
+import Header from "./_layout/Header";
 
-export default function RootLayout({
+export default function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -12,10 +11,7 @@ export default function RootLayout({
     <div className="align-items-start">
       <div id="main-container-div" className="container-fluid">
         <Header />
-        <div id="main-body-div" className="row align-items-start">
-          <LeftMenu />
-          {children}
-        </div>
+        {children}
       </div>
     </div>
   );

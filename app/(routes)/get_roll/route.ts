@@ -1,6 +1,6 @@
+import { Roll } from "@/app/(views)/main/_layout/LeftMenu";
 import { getPool } from "@/app/_lib/oracledb";
-import { sessionOptions } from "@/app/_lib/session";
-import { getIronSession } from "iron-session";
+import { getSession } from "@/app/_lib/session";
 import { NextResponse } from "next/server";
 import { Connection } from "oracledb";
 import getThisAdminRollSql from "./_sql/getThisAdminRollSql.sql";
@@ -10,11 +10,10 @@ export async function POST(req: Request) {
   try {
     // Load Session
     console.log("Loading Session...");
-    const response = NextResponse.next();
-    const session = await getIronSession<AppSession>(req, response, sessionOptions);
+    const session = await getSession();
 
     if (session.admin_id === undefined || session.admin_id.length <= 0) {
-      throw new Error("Error: session expired.", { cause: "SESSION EXPIRED" });
+      throw new Error("세션이 만료되었습니다.", { cause: 401 });
     }
 
     // Load database
@@ -24,22 +23,20 @@ export async function POST(req: Request) {
 
     // Get Roll
     console.log("Trying To Execute...");
-    const dbResult = await connection.execute(getThisAdminRollSql, [session.admin_id]);
+    const bindParams = { id: session.admin_id };
+    const dbResult = await connection.execute<FixedSizeArray<string, 5>>(getThisAdminRollSql, bindParams);
 
-    const myRollMenuObjectArray = [1];
+    const rolls: Roll[] = dbResult.rows?.map((row) => ({ rollId: row[0], rollName: row[1] })) || [];
 
-    return NextResponse.json({ status: "SUCCESS", value: myRollMenuObjectArray });
+    return NextResponse.json({ rolls }, { status: 200 });
   } catch (err) {
     console.error(err);
+
     if (!(err instanceof Error)) {
-      return NextResponse.json({ status: "FAIL", value: "" });
+      return NextResponse.json({ message: "에러가 발생했습니다." }, { status: 500 });
     }
 
-    if (err.cause === "SESSION EXPIRED") {
-      return NextResponse.json({ status: err.cause });
-    } else {
-      return NextResponse.json({ status: err.cause, value: "" });
-    }
+    return NextResponse.json({ message: err.message }, { status: (err.cause as number) || 500 });
   } finally {
     if (connection) {
       try {

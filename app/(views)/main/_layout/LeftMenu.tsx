@@ -1,9 +1,42 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import getRoll from "../_lib/getRoll";
+import RollDropdown from "./leftMenu/RollDropdown";
+
+export interface Roll {
+  rollId: string;
+  rollName: string;
+}
+
 export default function LeftMenu() {
+  const [selectedRoll, setSelectedRoll] = useState<Roll>();
+  const [rolls, setRolls] = useState<Roll[]>();
+
+  const selectRollHandler = (roll: Roll) => {
+    setSelectedRoll(roll);
+  };
+
+  useEffect(() => {
+    const onSuccess = (data: Roll[]) => {
+      setRolls(data);
+      if (data.length === 1) {
+        setSelectedRoll(data[0]);
+      }
+    };
+
+    getRoll(onSuccess);
+  }, []);
+
   return (
     <div id="left-menu-div">
       <div id="admin-info-div">
         <div id="admin-info-header-div" className="hufs-primary-bg text-white">
-          {/* 역할 */}
+          {rolls && rolls.length <= 1 ? (
+            <h5 className="hufs-font-m">{selectedRoll?.rollName || "권한 없음"}</h5>
+          ) : (
+            <RollDropdown rolls={rolls} selectRollHandler={selectRollHandler} selectedRoll={selectedRoll} />
+          )}
         </div>
         <div id="admin-info-body-div" className="hufs-accent-bg text-white p-1">
           <table>
