@@ -13,7 +13,7 @@ export async function GET() {
     const { admin_id } = await getSession();
 
     if (admin_id === undefined || admin_id.length <= 0) {
-      throw new Error("Error: session expired.", { cause: "SESSION EXPIRED" });
+      throw new Error("세션이 만료되었습니다.", { cause: 401 });
     }
 
     // Load database
@@ -30,21 +30,21 @@ export async function GET() {
     if (!rollMenuObjectArray) {
       throw new Error("캐싱된 데이터가 없습니다.", { cause: 500 });
     }
-    const rollIdSet = new Set(dbResult.rows?.map((row) => row[2])); // Set을 활용한 최적화
-    const myRollMenuObjectArray = rollMenuObjectArray.filter((rollMenuObject) => rollIdSet.has(rollMenuObject.roll_id));
+    const roleIdSet = new Set(dbResult.rows?.map((row) => row[2])); // Set을 활용한 최적화
+    const roles = rollMenuObjectArray.filter((rollMenuObject) => roleIdSet.has(rollMenuObject.roll_id));
 
-    return NextResponse.json({ status: "SUCCESS", value: myRollMenuObjectArray });
+    return NextResponse.json({ roles });
   } catch (err) {
     console.error(err);
     if (!(err instanceof Error)) {
-      return NextResponse.json({ status: "FAIL", value: "" });
+      return NextResponse.json({ message: "에러가 발생했습니다." }, { status: 500 });
     }
 
-    if (err.cause === "SESSION EXPIRED") {
-      return NextResponse.json({ status: err.cause });
-    } else {
-      return NextResponse.json({ status: err.cause, value: "" });
+    if (typeof err.cause === "number") {
+      return NextResponse.json({ message: err.message }, { status: err.cause });
     }
+
+    return NextResponse.json({ message: "에러가 발생했습니다." }, { status: 500 });
   } finally {
     if (connection) {
       try {
