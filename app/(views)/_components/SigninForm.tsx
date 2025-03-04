@@ -3,41 +3,41 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { KeyboardEventHandler } from "react";
+import signin from "../_api/signin";
 import { CenterToast } from "../_constants/swal";
 import useInput from "../_hooks/useInput";
-import signin from "../_lib/signin";
 
 export default function SigninForm() {
   const router = useRouter();
 
+  // Variables
   const [id, idChangeHandler] = useInput();
   const [password, passwordChangeHandler] = useInput();
 
+  // Handler
   const { mutate: signinHandler } = useMutation({
     mutationKey: ["signin"],
     mutationFn: signin,
     onMutate: () => {
       console.log("Trying To Signin...");
-
       if (!id.length || !password.length) {
         CenterToast({ type: "warning", title: `${!id.length ? "사번" : "비밀번호"}을 입력하세요.` });
         return;
       }
     },
     onSuccess: () => {
+      console.log("Signin Succeed.");
       router.replace("/main");
     },
     onError: (err: CustomError) => {
       CenterToast({ type: "warning", title: err.response?.data.message });
     },
   });
-
   const enterKeyHandler: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === "Enter") {
-      signinHandler();
+      signinHandler({ id, password });
     }
   };
-
   const findPasswordHandler = () => {
     CenterToast({ type: "info", title: "준비중입니다." });
   };

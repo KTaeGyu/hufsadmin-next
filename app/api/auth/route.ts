@@ -1,5 +1,5 @@
-import getClientIp from "@/app/(views)/_functions/getClientIp";
-import getCurrentTimeString from "@/app/(views)/_functions/getCurrentTimeString";
+import getClientIp from "@/app/_functions/getClientIp";
+import getCurrentTimeString from "@/app/_functions/getCurrentTimeString";
 import { getPool } from "@/app/_lib/oracledb";
 import { getSession } from "@/app/_lib/session";
 import { NextResponse } from "next/server";
@@ -20,7 +20,6 @@ export async function POST(req: Request) {
     const body: PostRequestBody = await req.json();
     const { id, password } = body;
     const ip = getClientIp(req);
-    const currentTime = getCurrentTimeString();
 
     // Data Validation Check
     if (!id || !password) {
@@ -40,6 +39,7 @@ export async function POST(req: Request) {
     let adminName = "";
     let deptName = "";
     let username = "";
+    const currentTime = getCurrentTimeString();
 
     // 로그인 시도
     console.log("Trying To Execute...");
@@ -55,8 +55,7 @@ export async function POST(req: Request) {
     else if (id[0] === "G" || id[0] === "S") {
       const sql = id[0] === "G" ? getGlobalCounselInternMember : getSeoulCounselInternMember;
 
-      const bindParams = { id, password };
-      const dbResult = await connection.execute<FixedSizeArray<string, 2>>(sql, bindParams);
+      const dbResult = await connection.execute<FixedArray<string, 2>>(sql, { id, password });
       // 로그인 정보가 없을 경우
       if (dbResult.rows?.length !== 1) {
         throw new Error("아이디 또는 비밀번호가 유효하지 않습니다.", { cause: 404 });
@@ -68,8 +67,7 @@ export async function POST(req: Request) {
     }
     // 일반 사용자
     else {
-      const bindParams = { id, password };
-      const dbResult = await connection.execute<FixedSizeArray<string, 3>>(getSeflagAU, bindParams);
+      const dbResult = await connection.execute<FixedArray<string, 3>>(getSeflagAU, { id, password });
 
       // 로그인 정보가 없을 경우
       if (dbResult.rows?.length !== 1) {
@@ -93,24 +91,24 @@ export async function POST(req: Request) {
     session.dept_name = deptName;
     session.recent_access_ip = ip;
     session.recent_access_time = currentTime;
-    await session.save();
+    session.save();
 
     // 로그인 정보 저장
     console.log("Insert Login Record...");
-    const bindParams = { id, username, currentTime, ip };
-    await connection.execute(insertLoginRecordSql, bindParams, {
-      autoCommit: true,
-    });
+    await connection.execute(insertLoginRecordSql, { id, username, currentTime, ip }, { autoCommit: true });
 
-    return NextResponse.json({ message: "login recoded." }, { status: 201 });
+    return NextResponse.json({ message: "로그인 내역이 기록되었습니다." }, { status: 201 });
   } catch (err) {
     console.log(err);
-
     if (!(err instanceof Error)) {
       return NextResponse.json({ message: "에러가 발생했습니다." }, { status: 500 });
     }
 
-    return NextResponse.json({ message: err.message }, { status: (err.cause as number) || 500 });
+    if (typeof err.cause === "number") {
+      return NextResponse.json({ message: err.message }, { status: err.cause });
+    }
+
+    return NextResponse.json({ message: "에러가 발생했습니다." }, { status: 500 });
   } finally {
     if (connection) {
       try {

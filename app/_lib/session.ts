@@ -2,11 +2,14 @@ import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 
 interface AppSession {
+  campus: string;
+  dept_name: string;
+  // admin
   admin_id: string;
   admin_name: string;
-  dept_name: string;
   recent_access_ip: string | null;
   recent_access_time: string;
+  roll_name_text: string;
 }
 
 const sessionOptions = {

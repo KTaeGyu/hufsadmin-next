@@ -1,2 +1,2 @@
 INSERT INTO HUFS_ADMIN_LOGIN 
-VALUES(:id, :username, :currentTime, :ip)
+VALUES(:1, :2, :3, :4)
